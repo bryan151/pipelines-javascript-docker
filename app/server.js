@@ -7,7 +7,7 @@ const HOST = '0.0.0.0';
 
 const app = express();
 app.get('/', (req, res) => {
-  res.send('Hello world\n');
+  res.send('<h1>This is my first app in AKS</h1>\n');
 });
 
 app.listen(PORT, HOST);
