@@ -72,7 +72,17 @@ stages:
             inputs:
               action: createSecret
               secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)              
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)   
+
+          - task: HelmDeploy@0
+            displayName: Helm save
+            inputs:
+              command: save
+              # chartNameForACR: mycontainerregistry.azurecr.io/helm/hello-world:v1
+              # chartPathForACR: Application/charts/sampleapp
+              azureSubscriptionEndpointForACR: $(azureSubscriptionEndpoint)
+              azureResourceGroupForACR: $(azureResourceGroup)
+              azureContainerRegistry: 'jalabootcampContainer01'          
 
           - task: HelmDeploy@0
             displayName: Helm install
@@ -84,7 +94,7 @@ stages:
               command: upgrade
               chartType: FilePath
               chartPath: $(Pipeline.Workspace)/charts/sampleapp
-              azureSubscriptionEndpointForACR: $(azureSubscriptionEndpoint)
+              #azureSubscriptionEndpointForACR: $(azureSubscriptionEndpoint)
               releaseName: azuredevopsdemo
               install: true
             
