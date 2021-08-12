@@ -62,7 +62,7 @@ stages:
         deploy:
           steps:
           - bash: |
-              ls -l
+              ls -l $(Pipeline.Workspace)
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:
