@@ -84,7 +84,9 @@ stages:
               command: upgrade
               chartType: FilePath
               chartPath: $(Pipeline.Workspace)/charts/sampleapp
-              azureResourceGroupForACR: $(dockerRegistryServiceConnection)
+              azureSubscriptionEndpointForACR: $(dockerRegistryServiceConnection)
+              releaseName: azuredevopsdemo
+              install: true
             
 - stage: Test
   displayName: Test stage
