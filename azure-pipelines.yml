@@ -45,6 +45,8 @@ stages:
 
     - upload: manifests
       artifact: manifests
+    - upload: charts
+      artifact: charts
 
 - stage: Dev
   displayName: Deploy dev
@@ -75,4 +77,17 @@ stages:
               scriptLocation: inlineScript
               inlineScript: |
                 az acr login --name $(containerRegistry)
+          - task: HelmDeploy@0
+            displayName: Helm install
+            inputs:
+              # azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+              # azureResourceGroup: $(azureResourceGroup)
+              # kubernetesCluster: $(kubernetesCluster)
+              namespace: dev
+              command: upgrade
+              chartType: FilePath
+              chartPath: $(Pipeline.Workspace)/charts/sampleapp
+              #azureSubscriptionEndpointForACR: $(azureSubscriptionEndpoint)
+              releaseName: azuredevopsdemo
+              install: true
 
