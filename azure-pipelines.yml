@@ -17,7 +17,7 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'jalabootcampcontainer01ee0a-auth'
-  azureSubscriptionEndpoint: 'Azure para estudiantes'
+  azureSubscriptionEndpoint: 'azureStudents'
   azureResourceGroup: 'jalabootcamp-bs-11'
   kubernetesCluster: 'multinode'
 
