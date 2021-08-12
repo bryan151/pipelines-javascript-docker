@@ -70,17 +70,15 @@ stages:
               secretName: $(imagePullSecret)
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
 
-          - task: KubernetesManifest@0
-            displayName: Deploy to Kubernetes cluster
+          - task: HelmDeploy@0
+            displayName: Helm install
             inputs:
-              action: deploy
-              manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
+              namespace: dev
+              command: upgrade
+              chartType: FilePath
+              chartPath: $(Pipeline.Workspace)/charts/sampleapp
+              releaseName: azuredevopsdemo
+              install: true
 
 - stage: Test
   displayName: Test stage
