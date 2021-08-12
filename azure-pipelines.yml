@@ -46,6 +46,8 @@ stages:
 
     - upload: manifests
       artifact: manifests
+    - upload: charts
+      artifact: charts
 
 - stage: Dev
   displayName: Dev stage
