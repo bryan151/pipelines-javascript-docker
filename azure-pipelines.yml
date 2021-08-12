@@ -81,7 +81,7 @@ stages:
               # azureResourceGroup: $(azureResourceGroup)
               # kubernetesCluster: $(kubernetesCluster)
               namespace: dev
-              command: install
+              command: upgrade
               chartType: FilePath
               chartPath: $(Pipeline.Workspace)/charts/sampleapp
             
