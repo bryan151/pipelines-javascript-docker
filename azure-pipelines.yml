@@ -65,6 +65,8 @@ stages:
           steps:
           - bash: |
               ls -l $(Pipeline.Workspace)
+          - bash: |
+              ls -l $(Pipeline.Workspace)/charts/sampleapp
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:
