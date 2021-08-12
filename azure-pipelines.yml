@@ -17,6 +17,9 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'jalabootcampcontainer01ee0a-auth'
+  azureSubscriptionEndpoint: 'Azure para estudiantes'
+  azureResourceGroup: 'jalabootcamp-bs-11'
+  kubernetesCluster: 'multinode'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -65,20 +68,19 @@ stages:
               secretName: $(imagePullSecret)
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
 
-          - task: KubernetesManifest@0
-            displayName: Deploy to Kubernetes cluster
+          - task: HelmDeploy@0
+            displayName: Helm install
             inputs:
-              action: deploy
-              manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
+              # azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+              # azureResourceGroup: $(azureResourceGroup)
+              # kubernetesCluster: $(kubernetesCluster)
+              command: install
+              chartType: FilePath
+              chartPath: $(Pipeline.Workspace)/charts/sampleapp
+            
 - stage: Test
   displayName: Test stage
-  dependsOn: Build
+  dependsOn: Dev
 
   jobs:
   - deployment: Deploy
