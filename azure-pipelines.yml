@@ -76,7 +76,7 @@ stages:
               scriptType: bash
               scriptLocation: inlineScript
               inlineScript: |
-                az acr login --name $(containerRegistry)
+                helm registry login $(containerRegistry)
           - task: HelmDeploy@0
             displayName: Helm install
             inputs:
