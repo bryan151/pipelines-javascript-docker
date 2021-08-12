@@ -17,6 +17,8 @@ variables:
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'jalabootcampcontainer011237-auth'
+  azureSubscriptionEndpoint: 'azureStudents'
+  azureResourceGroup: 'jalabootcamp-bs-11'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -44,8 +46,8 @@ stages:
     - upload: manifests
       artifact: manifests
 
-- stage: Deploy
-  displayName: Deploy stage
+- stage: Dev
+  displayName: Deploy dev
   dependsOn: Build
 
   jobs:
