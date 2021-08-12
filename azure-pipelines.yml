@@ -70,25 +70,48 @@ stages:
               secretName: $(imagePullSecret)
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
 
-          - task: AzureCLI@2
-            displayName: Login to Azure Container Registry
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
             inputs:
-              azureSubscription: "$(azureSubscriptionEndpoint)"
-              scriptType: bash
-              scriptLocation: inlineScript
-              inlineScript: |
-                helm registry login $(containerRegistry)
-          - task: HelmDeploy@0
-            displayName: Helm install
+              action: deploy
+              manifests: |
+                $(Pipeline.Workspace)/manifests/deployment.yml
+                $(Pipeline.Workspace)/manifests/service.yml
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                $(containerRegistry)/$(imageRepository):$(tag)
+
+- stage: Test
+  displayName: Test stage
+  dependsOn: Dev
+
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'bryan151pipelinesjavascriptdocker.qa'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
             inputs:
-              # azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-              # azureResourceGroup: $(azureResourceGroup)
-              # kubernetesCluster: $(kubernetesCluster)
-              namespace: dev
-              command: upgrade
-              chartType: FilePath
-              chartPath: $(Pipeline.Workspace)/charts/sampleapp
-              #azureSubscriptionEndpointForACR: $(azureSubscriptionEndpoint)
-              releaseName: azuredevopsdemo
-              install: true
+              action: createSecret
+              secretName: $(imagePullSecret)
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              action: deploy
+              manifests: |
+                $(Pipeline.Workspace)/manifests/deployment.yml
+                $(Pipeline.Workspace)/manifests/service.yml
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                $(containerRegistry)/$(imageRepository):$(tag)
 
