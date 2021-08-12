@@ -19,6 +19,7 @@ variables:
   imagePullSecret: 'jalabootcampcontainer011237-auth'
   azureSubscriptionEndpoint: 'azureStudents'
   azureResourceGroup: 'jalabootcamp-bs-11'
+  HELM_EXPERIMENTAL_OCI: 1
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
