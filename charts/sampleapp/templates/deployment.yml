@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp 
+  name: bryanpipelinesjavascriptdocker 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nodeapp
+      app: bryanpipelinesjavascriptdocker
   template:
     metadata:
       labels:
-        app: nodeapp 
+        app: bryanpipelinesjavascriptdocker 
     spec:
       containers:
-        - name: nodeapp 
-          image: jalabootcampcontainer01.azurecr.io/nodeapp
+        - name: bryanpipelinesjavascriptdocker 
+          image: jalabootcampcontainer01.azurecr.io/bryanpipelinesjavascriptdocker
           ports:
           - containerPort: 8080
