@@ -75,9 +75,9 @@ stages:
           - task: HelmDeploy@0
             displayName: Helm install
             inputs:
-              # azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-              # azureResourceGroup: $(azureResourceGroup)
-              # kubernetesCluster: $(kubernetesCluster)
+              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+              azureResourceGroup: $(azureResourceGroup)
+              kubernetesCluster: $(kubernetesCluster)
               command: install
               chartType: FilePath
               chartPath: $(Pipeline.Workspace)/charts/sampleapp
