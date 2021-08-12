@@ -74,10 +74,10 @@ stages:
             displayName: Helm install
             inputs:
               namespace: dev
-              command: upgrade
+              command: install
               chartType: FilePath
               chartPath: $(Pipeline.Workspace)/charts/sampleapp
-              install: true
+              #install: true
 
 - stage: Test
   displayName: Test stage
