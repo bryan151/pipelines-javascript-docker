@@ -84,6 +84,7 @@ stages:
               command: upgrade
               chartType: FilePath
               chartPath: $(Pipeline.Workspace)/charts/sampleapp
+              azureContainerRegistry: $(dockerRegistryServiceConnection)
             
 - stage: Test
   displayName: Test stage
