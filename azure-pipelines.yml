@@ -61,6 +61,8 @@ stages:
       runOnce:
         deploy:
           steps:
+          - bash: |
+              ls -l
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:
