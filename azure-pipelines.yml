@@ -53,7 +53,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'bryan151pipelinesjavascriptdocker.qa'
+    environment: 'bryan151pipelinesjavascriptdocker.dev'
     strategy:
       runOnce:
         deploy:
