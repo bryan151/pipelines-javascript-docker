@@ -77,7 +77,6 @@ stages:
               command: upgrade
               chartType: FilePath
               chartPath: $(Pipeline.Workspace)/charts/sampleapp
-              releaseName: azuredevopsdemo
               install: true
 
 - stage: Test
