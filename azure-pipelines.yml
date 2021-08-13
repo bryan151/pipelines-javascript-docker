@@ -61,7 +61,7 @@ stages:
         deploy:
           steps:
           - task: HelmDeploy@0
-            displayName: Helm install
+            displayName: Helm install and upgrade
             inputs:
               namespace: dev
               command: upgrade
@@ -69,5 +69,29 @@ stages:
               chartPath: $(Pipeline.Workspace)/charts/sampleapp
               releaseName: azuredevopsdemo
               install: true
-              recreate: true              
+              recreate: true      
+- stage: QA
+  displayName: QA stage
+  dependsOn: Dev
+
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'bryan151pipelinesjavascriptdocker.qa'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: HelmDeploy@0
+            displayName: Helm install and upgrade
+            inputs:
+              namespace: qa
+              command: upgrade
+              chartType: FilePath
+              chartPath: $(Pipeline.Workspace)/charts/sampleapp
+              releaseName: azuredevopsdemo
+              install: true
+              recreate: true         
 
