@@ -76,5 +76,5 @@ stages:
               chartPath: $(Pipeline.Workspace)/charts/sampleapp
               releaseName: azuredevopsdemo
               install: true
-              force: true              
+              recreate: true              
 
