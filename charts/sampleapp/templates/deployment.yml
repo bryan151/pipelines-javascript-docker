@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: bryanpipelinesjavascriptdocker 
-          image: jalabootcampcontainer01.azurecr.io/bryanpipelinesjavascriptdocker:70
+          image: jalabootcampcontainer01.azurecr.io/bryanpipelinesjavascriptdocker:95
           ports:
           - containerPort: 8080
